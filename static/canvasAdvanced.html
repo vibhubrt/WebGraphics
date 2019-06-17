@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <canvas id="canvas" width="150" height="150"></canvas>
+  <script type="application/javascript">
+     var canvas = document.getElementById('canvas');
+     var ctx = canvas.getContext('2d');
+     ctx.fillStyle = 'blue(200, 0, 0)';
+     ctx.fillRect(10, 10, 50, 50);
+
+     ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+     ctx.fillRect(30, 30, 50, 50);
+     
+     ctx.fillStyle = 'rgb(0, 0, 200, 0.8)';
+     ctx.fillRect(50,50, 50, 50);
+     
+     
+
+</script>
+</head>
+ <hr>
+ <canvas id="canvas1" width="150" height="150"></canvas>
+<script>
+    var canvas = document.getElementById('canvas1');
+    var ctx = canvas.getContext('2d');
+
+    ctx.fillRect(0, 0, 100, 100);
+    ctx.clearRect(45, 45, 60, 60);
+    ctx.strokeRect(50, 50, 50, 50);
+</script>
+
+<hr>
+<canvas id="canvas2" width="150" height="150"></canvas>
+<script>
+        var canvas = document.getElementById('canvas2');
+        var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(100, 75);
+    ctx.lineTo(100, 25);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(125, 50);
+    ctx.lineTo(100, 75);
+    ctx.lineTo(100, 25);
+    ctx.closePath();
+    ctx.stroke();
+
+</script>
+<hr>
+<canvas id="canvas3" width="150" height="150"></canvas>
+<script>
+    var canvas = document.getElementById('canvas3');
+    var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+    ctx.moveTo(100, 75);
+    ctx.lineTo(40, 75);
+    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+    ctx.moveTo(65, 65);
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+    ctx.moveTo(95, 65);
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.moveTo(65,55);
+    ctx.arc(60, 55, 5, 0, Math.PI, true);
+    ctx.moveTo(95, 55);
+    ctx.arc(90, 55, 5, 0, Math.PI , true);
+    ctx.stroke();
+</script>
+
+<hr>
+<canvas id="canvas4" width="150" height="150"></canvas>
+<script>
+var canvas = document.getElementById('canvas4');
+var ctx = canvas.getContext('2d');
+ctx.beginPath();
+    ctx.moveTo(75, 25);
+    ctx.quadraticCurveTo(25, 25, 25, 62.5);
+    ctx.quadraticCurveTo(25, 100, 50, 100);
+    ctx.quadraticCurveTo(50, 120, 30, 125);
+    ctx.quadraticCurveTo(60, 120, 65, 100);
+    ctx.quadraticCurveTo(125, 100, 125, 62.5);
+    ctx.quadraticCurveTo(125, 25, 75, 25);
+    ctx.stroke();
+</script>
+<hr>
+<canvas id="canvas5" width="150" height="150"></canvas>
+<script>
+    var ctx = document.getElementById('canvas5').getContext('2d');
+  for (var i = 0; i < 6; i++) {
+    for (var j = 0; j < 6; j++) {
+      ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ', ' +
+                       Math.floor(255 - 42.5 * j) + ', 0)';
+      ctx.fillRect(j * 25, i * 25, 25, 25);
+    }
+}
+</script>
+<hr>
+<canvas id="canvas6" width="110" height="110"></canvas>
+<script>
+    var ctx = document.getElementById('canvas6').getContext('2d');
+var offset = 0;
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.setLineDash([4, 2]);
+  ctx.lineDashOffset = -offset;
+  ctx.strokeRect(10, 10, 100, 100);
+}
+
+function march() {
+  offset++;
+  if (offset > 16) {
+    offset = 0;
+  }
+  draw();
+  setTimeout(march, 20);
+}
+
+march();
+</script>
+<hr>
+<canvas id="canvas7" width="300" height="300"></canvas>
+<script>
+var sun = new Image();
+var moon = new Image();
+var earth = new Image();
+function init() {
+  sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+  moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+  earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+  window.requestAnimationFrame(draw);
+}
+
+function draw() {
+  var ctx = document.getElementById('canvas7').getContext('2d');
+
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.clearRect(0, 0, 300, 300); // clear canvas
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';
+  ctx.save();
+  ctx.translate(150, 150);
+
+  // Earth
+  var time = new Date();
+  ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
+  ctx.translate(105, 0);
+  ctx.fillRect(0, -12, 40, 24); // Shadow
+  ctx.drawImage(earth, -12, -12);
+  
+  
+
+  
+
+  // Moon
+  ctx.save();
+  ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
+  ctx.translate(0, 28.5);
+  ctx.drawImage(moon, -3.5, -3.5);
+  ctx.restore();
+
+  ctx.restore();
+  
+  ctx.beginPath();
+  ctx.arc(150, 150, 105, 0, Math.PI * 2, false); // Earth orbit
+  ctx.stroke();
+ 
+  ctx.beginPath();
+  ctx.arc(145, 145, 135, 0, Math.PI * 2, false); // Earth orbit
+  ctx.stroke();
+
+  ctx.drawImage(sun, 0, 0, 300, 300);
+
+  
+  window.requestAnimationFrame(draw);
+}
+
+init();
+</script>
+</html>
