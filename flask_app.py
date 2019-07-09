@@ -21,6 +21,11 @@ def get_map():
     growth = get_data.get_growth_table()
     return(render_template("map.html", growth=growth))
 
+@app.route("/map1")
+def get_map1():
+    growth = get_data.get_growth_table()
+    return(render_template("map1.html", growth= growth))
+
 @app.route("/new")
 def new():
     return(render_template("example.html"))
