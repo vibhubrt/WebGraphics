@@ -10,7 +10,6 @@
         <script type="application/processing" data-processing-target="my_canvas">
             
             void setup() {
-                PFont myFont;
                 size(1000, 600);
                 background(100);
                 stroke(255);
@@ -19,8 +18,7 @@
                 states = loadShape ("static/us.svg");
                 smooth();
                 shape(states,0,0);
-                myFont = createFont("FFScala", 32);
-                textFont(myFont);
+                
                 {% for key in growth %}
                 
                     state = "{{ key }}";
