@@ -21,7 +21,7 @@
                 state = "{{ key }}";
                 state_shape = states.getChild(state);
                 state_shape.disableStyle();
-                fill(0,0,{{ growth[key] }} * 8 + 128)
+                fill(0,0,{{ growth[key] }} * 8 + 100)
                 shape(state_shape,0,0)
             {% endfor %}
         }
