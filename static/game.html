@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
+     </head>
+<body>
+<p>click on path to see faces</p>
+<script type="application/processing" data-processing-target="my_canvas1">
+boolean gameStart = false;
+float d=500; 
+float t=240; 
+float x=0; 
+float y=0; 
+float speed; 
+
+void setup() { 
+  size(500, 200); 
+  speed = motion();
+} 
+void draw() { 
+    background(255); 
+  path(); 
+  if (gameStart) {
+  
+  x += speed; 
+  if (x>(width-20)) { 
+    x=(width-20); 
+    speed *= -0.7;
+  }; 
+  if (x<=0) { 
+    x=0; 
+    speed = motion();
+  }; 
+  face(x, y);
+} 
+}
+void mousePressed() {
+    gameStart = !gameStart;
+  }
+void face(float x, float y) { 
+  pushMatrix(); 
+  translate(x, y); 
+  fill(0, 190, 190); 
+  noStroke(); 
+  rectMode(CENTER); 
+  rect(0, height/2, 40, 90); 
+
+  fill(0); 
+  ellipse(-15, height/2-20, 10, 10); 
+  ellipse(15, height/2-20, 10, 10); 
+  ellipse(0, height/2+20, 10, 10);
+   
+  popMatrix();
+  pushMatrix(); 
+  translate(x, y); 
+  fill(200, 222, 247); 
+  noStroke(); 
+  rectMode(CENTER); 
+  rect(200, height/2, 40, 90); 
+
+  fill(0); 
+  ellipse(185, height/2-20, 10, 10); 
+  ellipse(215, height/2-20, 10, 10); 
+  ellipse(200, height/2+20, 10, 10);
+   
+  popMatrix();
+
+  pushMatrix(); 
+  translate(x, y); 
+  fill(100, 222, 247); 
+  noStroke(); 
+  rectMode(CENTER); 
+  rect(100, height/2, 40, 90); 
+
+  fill(0); 
+  ellipse(85, height/2-20, 10, 10); 
+  ellipse(115, height/2-20, 10, 10); 
+  ellipse(100, height/2+20, 10, 10); 
+   
+  popMatrix();
+  
+
+} 
+
+void path() { 
+  fill(100); 
+  rect(width/2, height/2+15, 500, 10);
+} 
+
+float motion() { 
+  float speed = d/t;  
+  return speed; 
+} 
+  </script>
+  
+  <canvas id="my_canvas1"> </canvas>
+</body>
+</html>
