@@ -12,7 +12,7 @@
 		<script src="/three.js/examples/js/loaders/GLTFLoader.js"></script>
 		
 		<script>
-			let scene,camera, renderer, clouds = [], flash, rain, rainGeo, rainCount = 15000;
+			let scene,camera, renderer,  flashes, rain, rainGeo, rainCount = 17000,clouds = [];
 			function init() {
 			  scene = new THREE.Scene();
 			  camera = new THREE.PerspectiveCamera(60,window.innerWidth / window.innerHeight, 1, 1000);
@@ -30,9 +30,9 @@
 			  directionalLight.position.set(0,0,1);
 			  scene.add(directionalLight);
 
-			  flash = new THREE.PointLight(0xFC1212, 30, 500 ,1.7);
-			  flash.position.set(200,300,100);
-			  scene.add(flash);
+			  flashes = new THREE.PointLight(0xFC1212, 30, 500 ,1.7);
+			  flashes.position.set(200,300,100);
+			  scene.add(flashes);
 
 			  renderer = new THREE.WebGLRenderer();
 			  scene.fog = new THREE.FogExp2(0x11111f, 0.002);
@@ -124,27 +124,27 @@
 			  });
 			}
 			function animate() {
-			  clouds.forEach(p => {
-				p.rotation.z -=0.002;
+			  clouds.forEach(e => {
+				e.rotation.z -=0.002;
 			  });
-			  rainGeo.vertices.forEach(p => {
-				p.velocity -= 0.1 + Math.random() * 0.1;
-				p.y += p.velocity;
-				if (p.y < -200) {
-				  p.y = 200;
-				  p.velocity = 0;
+			  rainGeo.vertices.forEach(e => {
+				e.velocity -= 0.1 + Math.random() * 0.1;
+				e.y += e.velocity;
+				if (e.y < -200) {
+				  e.y = 200;
+				  e.velocity = 0;
 				}
 			  });
 			  rainGeo.verticesNeedUpdate = true;
 			  rain.rotation.y +=0.002;
-			  if(Math.random() > 0.93 || flash.power > 100) {
-				if(flash.power < 100) 
-				  flash.position.set(
+			  if(Math.random() > 0.94 || flashes.power > 101) {
+				if(flashes.power < 99) 
+				  flashes.position.set(
 					Math.random()*400,
 					300 + Math.random() *200,
 					100
 				  );
-				flash.power = 50 + Math.random() * 500;
+				flashes.power = 70 + Math.random() * 700;
 			  }
 			  renderer.render(scene, camera);
 			  requestAnimationFrame(animate);
